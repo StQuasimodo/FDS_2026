@@ -1,0 +1,223 @@
+\documentclass[12pt, a4paper]{report}
+\usepackage{geometry}
+\geometry{a4paper, margin=2.5cm}
+\usepackage{enumitem}
+\usepackage{hyperref}
+\usepackage{graphicx}
+\usepackage[fontset=windows]{ctex}
+\usepackage{fontspec}
+\usepackage{tabularx}
+\usepackage{longtable}
+\setCJKmainfont{SimSun}[AutoFakeBold]
+\setmainfont{Times New Roman}
+
+\IfFontExistsTF{Consolas}{
+    \setmonofont{Consolas}[Scale=MatchLowercase]
+}{
+    \IfFontExistsTF{Courier New}{
+        \setmonofont{Courier New}[Scale=MatchLowercase]
+    }{
+        \setmonofont{Inconsolata}[Scale=MatchLowercase]
+    }
+}
+
+\renewcommand{\tablename}{Table}
+\renewcommand{\figurename}{Figure}
+
+\usepackage{listings}
+\usepackage{xcolor}
+\usepackage{tcolorbox}
+\tcbuselibrary{skins, breakable}
+
+% VS Code Dark+ 颜色
+\definecolor{vsBg}{RGB}{30,30,30}
+\definecolor{vsComment}{RGB}{106,153,85}
+\definecolor{vsKeyword}{RGB}{86,156,214}
+\definecolor{vsString}{RGB}{206,145,108}
+\definecolor{vsNumber}{RGB}{181,206,168}
+\definecolor{vsFunction}{RGB}{220,220,170}
+
+% 配置 listings 高亮
+\lstset{
+    language=C,
+    basicstyle=\ttfamily\normalsize\color{white},
+    keywordstyle=\color{vsKeyword},
+    commentstyle=\color{vsComment}\itshape,
+    stringstyle=\color{vsString},
+    numberstyle=\tiny\color{gray},
+    numbers=left,
+    numbersep=5pt,
+    breaklines=true,
+    tabsize=4,
+    showstringspaces=false,
+    frame=none,
+}
+
+% VS Code 风格代码块
+\newenvironment{vsCodeBlock}[1]
+{%
+    \begin{tcolorbox}[
+        colback=vsBg, colframe=vsBg, arc=3pt, left=15pt, right=5pt,
+        title=#1, fonttitle=\ttfamily\small\color{white},
+        breakable,
+        enhanced,
+        coltext=white,
+        before upper={\color{white}\lstset{basicstyle=\ttfamily\small\color{white}}},
+        after={\par\nointerlineskip}
+    ]%
+    \lstset{basicstyle=\ttfamily\normalsize\color{white}}
+}
+{%
+    \end{tcolorbox}
+}
+
+\makeatletter
+\renewcommand{\today}{\the\year-\two@digits{\month}-\two@digits{\day}}
+\makeatother
+
+\begin{document}
+
+% ------------------- 封面页 -------------------
+\begin{titlepage}
+    \centering
+    \vspace*{3cm}
+    {\huge\bfseries Project Title\par}         % <-- 在此处填写项目标题
+    \vspace{2cm}
+    {\LARGE\bfseries Your Name\par}            % <-- 作者姓名
+    \vspace{2cm}
+    {\Large\bfseries \today\par}               % <-- 日期
+\end{titlepage}
+\newpage
+
+% ============================================
+% Chapter 1: Introduction
+% ============================================
+\chapter{Introduction}
+
+\section{Problem Description}
+% 在此处详细描述问题：输入、输出、约束条件等
+\textit{Problem description and (if any) background of the algorithms.}
+
+\section{Background}
+% 可选：介绍问题背景、相关算法及其重要性
+\textit{ (Optional) Explain the background of the problem, relevant algorithms, and why efficient solutions are needed.}
+
+% ============================================
+% Chapter 2: Algorithm Specification
+% ============================================
+\chapter{Algorithm Specification}
+
+\textit{Description (pseudo-code preferred) of all the algorithms involved for solving the problem, including specifications of main data structures.}
+
+\section{Overall Approach}
+% 概括整体思路，列出主要步骤
+\begin{enumerate}
+    \item Step 1 ...
+    \item Step 2 ...
+    \item ...
+\end{enumerate}
+
+\section{Data Structures}
+% 说明用到的数据结构，可用列表或代码块展示
+\begin{itemize}
+    \item \textbf{Example struct}:
+\begin{vsCodeBlock}{}
+    \begin{lstlisting}[language=C]
+// Define your structures here
+\end{lstlisting}
+\end{vsCodeBlock}
+    \item \textbf{Other structures}: ...
+\end{itemize}
+
+\section{Pseudo-code}
+% 给出关键算法的伪代码，可用 verbatim 或算法环境
+
+% ============================================
+% Chapter 3: Testing Results
+% ============================================
+\chapter{Testing Results}
+
+\textit{Table of test cases. Each test case usually consists of a brief description of the purpose of this case, the expected result, the actual behavior of your program, the possible cause of a bug if your program does not function as expected, and the current status (“pass”, or “corrected”, or “pending”).}
+
+\section{Test Cases}
+
+\begin{longtable}{|c|p{2.5cm}|p{4.5cm}|p{5cm}|c|}
+\caption{Test cases and results} \\
+\hline
+ID & Purpose & Input (brief) & Expected Result & Status \\ \hline
+\endfirsthead
+\hline
+ID & Purpose & Input (brief) & Expected Result & Status \\ \hline
+\endhead
+\hline \multicolumn{5}{r}{Continued on next page} \\
+\endfoot
+\hline
+\endlastfoot
+
+1 & Example test & ... & ... & pass \\ \hline
+2 & ... & ... & ... & ... \\ \hline
+% 在此处添加更多测试用例
+
+\end{longtable}
+
+\section{Remarks}
+% 关于测试的补充说明，如重复键处理、输出顺序等
+\begin{itemize}
+    \item Remark 1 ...
+\end{itemize}
+
+% ============================================
+% Chapter 4: Analysis and Comments
+% ============================================
+\chapter{Analysis and Comments}
+
+\textit{Analysis of the time and space complexities of the algorithms. Comments on further possible improvements.}
+
+\section{Time Complexity}
+\begin{itemize}
+    \item Operation 1: \(O(\ldots)\)
+    \item Operation 2: \(O(\ldots)\)
+    \item \textbf{Overall}: \(O(\ldots)\)
+\end{itemize}
+
+\section{Space Complexity}
+\begin{itemize}
+    \item Memory for ... : \(O(\ldots)\)
+    \item \textbf{Overall}: \(O(\ldots)\)
+\end{itemize}
+
+\section{Possible Improvements}
+% 讨论可能的优化、不同数据结构的替代方案等
+\begin{itemize}
+    \item Improvement idea 1 ...
+    \item Improvement idea 2 ...
+\end{itemize}
+
+% ============================================
+% Appendix: Source Code (in C)
+% ============================================
+\chapter*{Appendix: Source Code (in C)}
+\textit{At least 30\% of the lines must be commented. Otherwise the code will NOT be evaluated.}
+
+% 示例代码块，请替换为您的实际代码文件或直接粘贴代码
+\begin{vsCodeBlock}{filename1.c}
+% 在此处用 \lstinputlisting{filename.c} 或直接编写代码
+\begin{lstlisting}[language=C]
+// Your code here, with sufficient comments.
+\end{lstlisting}
+\end{vsCodeBlock}
+
+\begin{vsCodeBlock}{filename2.c}
+\begin{lstlisting}[language=C]
+// More code ...
+\end{lstlisting}
+\end{vsCodeBlock}
+
+% ============================================
+% Declaration
+% ============================================
+\chapter*{Declaration}
+{\Large \bfseries \itshape I hereby declare that all the work done in this project titled ``Project Title'' is of my independent effort. \par}
+% 请将 "Project Title" 替换为您的实际项目标题
+
+\end{document}
